@@ -254,12 +254,6 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
 .notif-badge{display:none;background:var(--coral);color:#fff;font-size:10px;font-weight:600;padding:1px 6px;border-radius:10px;margin-left:2px}
 
 
-/* ── Demo mode ── */
-.demo-banner{background:#173404;color:#C0DD97;padding:10px 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px}
-.demo-banner strong{font-weight:600}
-.demo-banner a{color:#86A083;font-weight:500;text-decoration:underline;cursor:pointer}
-.demo-pill{display:inline-block;background:#86A083;color:#1a1a18;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-right:6px;letter-spacing:.03em}
-
 /* ── Footer ── */
 .app-footer{margin-top:3rem;padding-top:1rem;border-top:1px solid rgba(39,80,10,.2);font-size:11px;color:var(--forest-mid);text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:500}
 .app-footer img{width:18px;height:18px;border-radius:50%;opacity:.7}
@@ -273,17 +267,9 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
 <body>
 <div class="container">
 
-  <!-- DEMO BANNER -->
-  <div class="demo-banner" id="demo-banner">
-    <div><span class="demo-pill">DEMO</span><strong>You're in demo mode</strong> — all data is pre-loaded, no API key needed. <span style="opacity:.7">Perfect for exploring the full experience.</span></div>
-    <div style="display:flex;align-items:center;gap:12px">
-      <span style="font-size:12px;opacity:.7">Ready to use for real?</span>
-      <button class="btn btn-sm" style="background:#86A083;color:#1a1a18;border:none" onclick="document.getElementById('api-banner').style.display='flex';document.getElementById('demo-banner').style.display='none'"><i class="ti ti-key"></i> Add API key</button>
-    </div>
-  </div>
 
   <!-- API KEY BANNER -->
-  <div class="api-banner" id="api-banner" style="display:none">
+  <div class="api-banner" id="api-banner">
     <i class="ti ti-key"></i>
     <div style="flex:1">
       <p><strong>One-time setup:</strong> Paste your Anthropic API key to activate all AI features. Get one free at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>. Stored only in this browser.</p>
@@ -524,35 +510,6 @@ document.getElementById('mascot-img-header').src = MASCOT_SRC;
 document.getElementById('mascot-img-footer').src = MASCOT_SRC;
 
 
-// ═══════════════════════════════════════════
-// DEMO DATA — pre-loaded for demo mode
-// ═══════════════════════════════════════════
-const DEMO_JOBS=[
-  {title:'Customer Success Manager',company:'Tappr',location:'Belgrade · Remote',industry:'SaaS / Fintech',contract_type:'Permanent',job_type:'Remote',platform:'Infostud',posted:'2 days ago',url:'https://poslovi.infostud.com',snippet:'Tappr is a fast-growing B2B SaaS company seeking a CSM to own end-to-end client onboarding and drive product adoption. You will be the primary point of contact for key accounts, running discovery sessions, delivering training and ensuring long-term success.',fit_score:87,fit_reason:'Strong process mapping and SaaS onboarding experience maps directly to this role',key_requirements:['3+ years CSM in SaaS','Client onboarding experience','English fluent'],match_tags:[{label:'SaaS',match:true},{label:'Onboarding',match:true},{label:'Process Mapping',match:true},{label:'iGaming exp',match:false}],sal_min:2800,sal_max:3500,sal_disclosed:true,deal_breaker:false,deal_breaker_reason:null},
-  {title:'Head of Client Success',company:'Pathway Port',location:'Serbia · Remote',industry:'AI / Tech',contract_type:'Permanent',job_type:'Remote',platform:'LinkedIn',posted:'4 days ago',url:'https://linkedin.com',snippet:'Pathway Port is building the next generation of AI-powered business tools. We are looking for a Head of Client Success to build and lead the CS department from scratch, define KPIs and own the full client lifecycle.',fit_score:91,fit_reason:'Leadership experience and built-from-scratch support model at Holland Mountain is a perfect fit',key_requirements:['5+ years CS leadership','Department building experience','SaaS background'],match_tags:[{label:'Team Leadership',match:true},{label:'Department building',match:true},{label:'SaaS',match:true},{label:'AI experience',match:true}],sal_min:3500,sal_max:5000,sal_disclosed:true,deal_breaker:false,deal_breaker_reason:null},
-  {title:'Implementation Manager',company:'Nordeus',location:'Belgrade · Hybrid',industry:'Gaming / Tech',contract_type:'Permanent',job_type:'Hybrid',platform:'LinkedIn',posted:'5 days ago',url:'https://linkedin.com',snippet:'Nordeus is seeking an Implementation Manager to lead technical onboarding projects for enterprise clients. The role requires strong project management skills, ability to translate business requirements into technical specs and managing cross-functional stakeholders.',fit_score:74,fit_reason:'Project management and stakeholder coordination skills match well, though gaming industry experience is preferred',key_requirements:['Project management','Technical onboarding','Gaming industry preferred'],match_tags:[{label:'Project Management',match:true},{label:'Stakeholder Management',match:true},{label:'Technical onboarding',match:true},{label:'Gaming exp',match:false}],sal_min:2200,sal_max:2800,sal_disclosed:true,deal_breaker:false,deal_breaker_reason:null},
-  {title:'Account Manager',company:'Nordnet',location:'Belgrade · On-site',industry:'Fintech',contract_type:'Permanent',job_type:'On-site',platform:'Infostud',posted:'1 week ago',url:'https://poslovi.infostud.com',snippet:'Nordnet is looking for an Account Manager to manage a portfolio of SMB clients, handle renewals and upsells and ensure client satisfaction. Requires relocation to Belgrade city centre office full time.',fit_score:58,fit_reason:'Account management skills match but full on-site requirement and lower salary may not align with preferences',key_requirements:['Account management','Renewals experience','Full on-site Belgrade'],match_tags:[{label:'Account Management',match:true},{label:'CRM',match:true},{label:'Full on-site',match:false},{label:'Salary',match:false}],sal_min:1800,sal_max:2200,sal_disclosed:true,deal_breaker:true,deal_breaker_reason:'Relocation required'}
-];
-
-const DEMO_ANALYSIS={
-  score:87,skills_score:91,experience_score:88,culture_fit_score:82,
-  salary_est_min:'2800',salary_est_max:'3500',
-  salary_note:'Competitive for a remote SaaS CSM role in Serbia — above market average for Belgrade.',
-  summary:'Danka\u2019s profile is an excellent match for this role. Her 15+ years of hands-on CSM experience, combined with recent AI platform onboarding work at Marketech, maps directly onto Tappr\u2019s requirements. The only minor gap is specific iGaming industry experience, which is preferred but not essential.',
-  strengths:['End-to-end SaaS onboarding experience — exactly what Tappr needs','Process mapping and support model design skills demonstrated at Holland Mountain','AI platform experience with Claude/ChatGPT directly relevant to Tappr\u2019s tech stack'],
-  gaps:['No direct iGaming industry experience (preferred but not required)','No mention of specific CRM tools Tappr uses (HubSpot/Salesforce)'],
-  tips:['Lead with the Marketech AI platform onboarding experience — it\u2019s a direct match','Reference the Holland Mountain support model you built from scratch — shows you can structure chaos','Address the iGaming gap proactively — frame fintech/SaaS experience as transferable'],
-  red_flags:[],
-  company_notes:'Tappr is a fast-growing Belgrade-based B2B SaaS startup with around 50 employees. They have strong investor backing and are expanding their iGaming vertical across Eastern Europe. Culture is described as fast-paced, collaborative and remote-first. Glassdoor reviews are positive.',
-  cv_summary_rewrite:'Senior Customer Success professional with 15+ years delivering measurable client outcomes across SaaS, AI and fintech environments. Proven track record of building onboarding frameworks from scratch, leading cross-functional implementations and driving adoption of complex technical platforms — including daily hands-on work with AI tools. Combines deep process mapping expertise with the stakeholder management skills to align business needs, technical teams and end users.',
-  cv_skills:['SaaS Implementation','Client Onboarding','Process Mapping','AI Platform Experience','Change Management','Stakeholder Management'],
-  cv_bullets:[
-    {original:'Leads end-to-end client onboarding for an AI agent support platform serving the iGambling industry',improved:'Owns full client onboarding lifecycle for AI agent platform — from discovery through go-live — consistently achieving first-value milestones within agreed timelines',section:'Marketech Solutions'},
-    {original:'Designed Support model from scratch: ticket lifecycle, prioritisation framework, KPIs',improved:'Architected support operations from zero — designed ticket lifecycle, SLA framework and KPI dashboard still driving team performance today',section:'Holland Mountain'}
-  ]
-};
-// ═══════════════════════════════════════════
-
 const STAGES=[
   {id:'applied',label:'Applied',color:'#534AB7'},
   {id:'awaiting',label:'Awaiting Reply',color:'#378ADD'},
@@ -585,7 +542,7 @@ SKILLS: Process Mapping, Change Management, Client Onboarding, Training, Stakeho
 TOOLS: CRM, Freshdesk, Jira, Trello, Workday, Claude, ChatGPT, Linear, Pylon.`;
 
 let cvText=DEFAULT_CV;
-let setup=load('as_setup')||{salMin:'2500',salPeriod:'monthly',salBasis:'net',salCurrency:'EUR',location:'Belgrade',type:'any',dealBreakers:'relocation required, unpaid trial'};
+let setup=load('as_setup')||{salMin:'',salPeriod:'monthly',salBasis:'net',salCurrency:'EUR',location:'',type:'any',dealBreakers:''};
 let applications=load('as_apps')||[
   {id:1001,title:'Customer Success Manager',company:'Tappr',date:'05 May 2026',score:87,notes:'Great remote role, spoke to recruiter on 06 May',stage:'interview1',dateAdded:Date.now()-3*86400000},
   {id:1002,title:'Implementation Manager',company:'Nordeus',date:'02 May 2026',score:74,notes:'Hybrid — need to confirm office days',stage:'awaiting',dateAdded:Date.now()-8*86400000},
@@ -594,11 +551,7 @@ let applications=load('as_apps')||[
   {id:1006,title:'Product CSM',company:'Vega IT',date:'10 Apr 2026',score:70,notes:'Never heard back',stage:'noreply',dateAdded:Date.now()-30*86400000},
   {id:1005,title:'Account Manager',company:'Nordnet',date:'15 Apr 2026',score:55,notes:'Salary below minimum',stage:'rejected',dateAdded:Date.now()-25*86400000}
 ];
-let reminders=load('as_reminders')||[
-  {id:2001,title:'Customer Success Manager',company:'Tappr',score:87,url:'https://poslovi.infostud.com',deadline:new Date(Date.now()+2*86400000).toISOString().split('T')[0],addedAt:Date.now()-3*86400000},
-  {id:2002,title:'Head of Client Success',company:'Pathway Port',score:91,url:'https://linkedin.com',deadline:new Date(Date.now()+9*86400000).toISOString().split('T')[0],addedAt:Date.now()-5*86400000},
-  {id:2003,title:'SaaS Implementation Lead',company:'Vega IT',score:78,url:'',deadline:new Date(Date.now()-1*86400000).toISOString().split('T')[0],addedAt:Date.now()-15*86400000}
-];
+let reminders=load('as_reminders')||[];
 let currentJob=null,currentAnalysis=null,cvEdits={};
 let activePlatforms=['infostud','linkedin'],activePeriod='week';
 let dragCard=null,obStep=1,unsavedResult=false;
@@ -625,7 +578,7 @@ function toggleKeyVis(){
 })();
 
 // ── Onboarding ──
-function checkOnboarding(){} // skipped in demo mode — onboarding pre-completed
+function checkOnboarding(){if(!localStorage.getItem('as_onboarded'))document.getElementById('ob-overlay').style.display='flex';}
 function obNext(){
   // Step 1 is now CV — salary is step 3 and optional
   if(obStep===3&&!document.getElementById('ob-sal-min').value){if(!confirm('No minimum salary set — continue anyway?'))return;}
@@ -766,15 +719,6 @@ async function searchJobs(){
   btn.disabled=true;btn.innerHTML='<span class="spinner" style="border-top-color:#1a1a18"></span> Searching...';
   document.getElementById('search-results').innerHTML='<div class="loading"><div class="spinner spinner-dark"></div> Searching '+activePlatforms.join(' & ')+'...</div>';
 
-  // DEMO MODE
-  if(!getKey()){
-    await new Promise(r=>setTimeout(r,1800));
-    window._searchJobs=DEMO_JOBS;
-    renderSearchResults(DEMO_JOBS);
-    btn.disabled=false;btn.innerHTML='<i class="ti ti-search"></i> Search jobs ↗';
-    return;
-  }
-
   // LIVE MODE
   const location=document.getElementById('search-location').value.trim();
   const otherUrl=document.getElementById('other-platform-url')?.value?.trim();
@@ -853,15 +797,7 @@ function startDeepAnalysis(idx){
 }
 
 async function runDeepAnalysis(job){
-  if(!getKey()){
-    document.getElementById('wizard-body').innerHTML='<div class="loading"><div class="spinner spinner-dark"></div> Running deep analysis...</div>';
-    await new Promise(r=>setTimeout(r,2200));
-    currentAnalysis=DEMO_ANALYSIS;
-    renderWizardStep1();
-    unsavedResult=true;
-    showSavePrompt();
-    return;
-  }
+
   document.getElementById('wizard-body').innerHTML='<div class="loading"><div class="spinner spinner-dark"></div> Running deep analysis...</div>';
   const prompt=`Senior career coach. Be specific and honest.\nCV:\n${cvText}\nJOB: ${job.title} at ${job.company}\nDESCRIPTION: ${job.snippet}\nReturn ONLY valid JSON:\n{"score":<0-100>,"skills_score":<0-100>,"experience_score":<0-100>,"culture_fit_score":<0-100>,"salary_est_min":"<monthly EUR>","salary_est_max":"<monthly EUR>","salary_note":"<1 sentence>","summary":"<3 sentences>","strengths":["<s>","<s>","<s>"],"gaps":["<g>","<g>"],"tips":["<t>","<t>"],"red_flags":["<flag or empty array>"],"company_notes":"<2-3 sentences>","cv_summary_rewrite":"<3-4 sentence tailored summary>","cv_skills":["<s>","<s>","<s>","<s>"],"cv_bullets":[{"original":"<b>","improved":"<b>","section":"<s>"},{"original":"<b>","improved":"<b>","section":"<s>"}]}`;
   try{
@@ -961,26 +897,7 @@ function proceedToCV(){
 function toggleSkill(i,el,s){el.classList.toggle('removed');if(el.classList.contains('removed'))cvEdits.skills=cvEdits.skills.filter(x=>x!==s);else cvEdits.skills.push(s);}
 
 async function generateWordCV(){
-  if(!getKey()){
-    const area=document.getElementById('cv-word-result');
-    area.innerHTML='<div class="loading"><div class="spinner spinner-dark"></div> Building tailored CV...</div>';
-    await new Promise(r=>setTimeout(r,1500));
-    cvEdits.summary=document.getElementById('edit-summary').value;
-    cvEdits.bullets.forEach((b,i)=>{b.edited=document.getElementById('edit-bullet-'+i)?.value||b.improved;});
-    buildDocx({
-      profile:cvEdits.summary,
-      experience:[
-        {title:'Customer Success Manager',company:'Marketech Solutions',dates:'Aug 2025–Present',bullets:['Led end-to-end onboarding for AI agent platform clients, reducing time-to-value by 30% through structured implementation methodology','Conducted discovery sessions translating complex client requirements into actionable technical integration specs','Drove platform adoption through hands-on training, achieving 95%+ client satisfaction scores']},
-        {title:'Team Leader — KYC Operations',company:'Sumsub',dates:'Sep 2024–Aug 2025',bullets:['Managed and developed 20+ remote KYC specialists across multiple locations, maintaining 98% SLA compliance','Designed and delivered coaching programmes that improved team quality scores by 22%','Owned end-to-end recruitment, scaling team capacity by 40% to meet business growth targets']},
-        {title:'Client Success Manager',company:'Holland Mountain',dates:'Apr 2022–Oct 2023',bullets:['Designed support model from scratch — ticket lifecycle, prioritisation framework and KPIs still in use today','Led change management initiative onboarding 6 departments to new support platform with zero disruption','Built and maintained CRM enabling data-driven account management across 25+ key accounts']}
-      ],
-      skills:cvEdits.skills.length?cvEdits.skills:['Process Mapping','Change Management','Client Onboarding','SaaS Implementation','Stakeholder Management','Team Leadership','KPI Management','Project Management'],
-      tools:['CRM','Freshdesk','Jira','Trello','Workday','Claude','ChatGPT','Linear','Pylon'],
-      education:"Master's in Entrepreneurial Management, University of Belgrade (2017)",
-      languages:'English (fluent), Italian, Spanish'
-    },area);
-    return;
-  }
+
   const area=document.getElementById('cv-word-result');
   area.innerHTML='<div class="loading"><div class="spinner spinner-dark"></div> Building tailored CV...</div>';
   cvEdits.summary=document.getElementById('edit-summary').value;
@@ -1076,14 +993,7 @@ function showSaveForLater(){
 }
 
 async function autoExtractDeadline(){
-  if(!getKey()){
-    const btn=event.target.closest('button');btn.disabled=true;btn.innerHTML='<span class="spinner" style="border-top-color:#1a1a18"></span>';
-    await new Promise(r=>setTimeout(r,800));
-    const futureDate=new Date(Date.now()+14*86400000).toISOString().split('T')[0];
-    document.getElementById('deadline-input').value=futureDate;
-    btn.disabled=false;btn.innerHTML='<i class="ti ti-sparkles"></i> Auto-detect';
-    return;
-  }
+
   const btn=event.target.closest('button');btn.disabled=true;btn.innerHTML='<span class="spinner"></span>';
   try{
     const d=await callAPI([{role:'user',content:`Extract the application deadline from this job posting. Return ONLY the date as YYYY-MM-DD, or "unknown" if not found.\nJob: ${currentJob.title} at ${currentJob.company}\n${currentJob.snippet}`}],100);
@@ -1261,10 +1171,7 @@ function readFileAndExtract(file, onDone){
 
 // ── CV name + headline extraction ──
 async function extractCVProfile(fileText){
-  if(!getKey()){
-    // Demo mode — skip extraction, keep defaults
-    return;
-  }
+
   try{
     const raw=await callAPI([{role:'user',content:`You are a CV parser. Read this CV and extract two things:
 1. The candidate's full name
