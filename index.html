@@ -253,6 +253,13 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
 .notif-info .ni-deadline{font-size:11px;font-weight:500}
 .notif-badge{display:none;background:var(--coral);color:#fff;font-size:10px;font-weight:600;padding:1px 6px;border-radius:10px;margin-left:2px}
 
+
+/* ── Demo mode ── */
+.demo-banner{background:#173404;color:#C0DD97;padding:10px 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:13px}
+.demo-banner strong{font-weight:600}
+.demo-banner a{color:#86A083;font-weight:500;text-decoration:underline;cursor:pointer}
+.demo-pill{display:inline-block;background:#86A083;color:#1a1a18;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-right:6px;letter-spacing:.03em}
+
 /* ── Footer ── */
 .app-footer{margin-top:3rem;padding-top:1rem;border-top:1px solid rgba(39,80,10,.2);font-size:11px;color:var(--forest-mid);text-align:center;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:500}
 .app-footer img{width:18px;height:18px;border-radius:50%;opacity:.7}
@@ -266,8 +273,17 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
 <body>
 <div class="container">
 
+  <!-- DEMO BANNER -->
+  <div class="demo-banner" id="demo-banner">
+    <div><span class="demo-pill">DEMO</span><strong>You're in demo mode</strong> — all data is pre-loaded, no API key needed. <span style="opacity:.7">Perfect for exploring the full experience.</span></div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:12px;opacity:.7">Ready to use for real?</span>
+      <button class="btn btn-sm" style="background:#86A083;color:#1a1a18;border:none" onclick="document.getElementById('api-banner').style.display='flex';document.getElementById('demo-banner').style.display='none'"><i class="ti ti-key"></i> Add API key</button>
+    </div>
+  </div>
+
   <!-- API KEY BANNER -->
-  <div class="api-banner" id="api-banner">
+  <div class="api-banner" id="api-banner" style="display:none">
     <i class="ti ti-key"></i>
     <div style="flex:1">
       <p><strong>One-time setup:</strong> Paste your Anthropic API key to activate all AI features. Get one free at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>. Stored only in this browser.</p>
@@ -299,16 +315,6 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
       </div>
       <div class="ob-body">
         <div class="ob-step active" id="ob-step-1">
-          <p style="font-size:13px;color:var(--text2);margin-bottom:1rem">Set your minimum so the app flags roles below your threshold instantly.</p>
-          <div class="salary-grid">
-            <div><div class="label">Minimum salary</div><input type="number" id="ob-sal-min" placeholder="e.g. 2500" min="0"/></div>
-            <div><div class="label">Period</div><select id="ob-sal-period"><option value="monthly">Monthly</option><option value="annual">Annual</option></select></div>
-            <div><div class="label">Basis</div><select id="ob-sal-basis"><option value="net">Net</option><option value="gross">Gross</option></select></div>
-            <div><div class="label">Currency</div><select id="ob-sal-currency"><option value="EUR">EUR €</option><option value="RSD">RSD</option></select></div>
-          </div>
-          <p style="font-size:11px;color:var(--text3);margin-top:4px"><i class="ti ti-info-circle"></i> Net/gross conversions use estimated Serbian tax brackets and are always labelled as estimates.</p>
-        </div>
-        <div class="ob-step" id="ob-step-2">
           <p style="font-size:13px;color:var(--text2);margin-bottom:1rem">Upload your CV so Apply & Shine can tailor everything to your actual experience.</p>
           <div class="upload-zone" onclick="document.getElementById('ob-cv-file').click()" id="ob-upload-zone">
             <div class="uicon"><i class="ti ti-file-upload"></i></div>
@@ -318,15 +324,25 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
           <input type="file" id="ob-cv-file" accept=".pdf,.docx,.doc" style="display:none" onchange="handleOBCVUpload(this)"/>
           <p style="font-size:11px;color:var(--text3)"><i class="ti ti-info-circle"></i> Scanned PDFs cannot be read — use a text-based PDF or Word file.</p>
         </div>
-        <div class="ob-step" id="ob-step-3">
-          <p style="font-size:13px;color:var(--text2);margin-bottom:1rem">Almost done — a couple of quick preferences to sharpen your results.</p>
+        <div class="ob-step" id="ob-step-2">
+          <p style="font-size:13px;color:var(--text2);margin-bottom:1rem">Set your location, job type and any deal-breakers — these sharpen your search results.</p>
           <div class="form-row">
             <div><div class="label">Preferred location</div><input type="text" id="ob-location" placeholder="e.g. Belgrade, Remote" value="Belgrade"/></div>
             <div><div class="label">Job type</div><select id="ob-type"><option value="any">Any</option><option value="remote">Remote only</option><option value="hybrid">Hybrid</option><option value="onsite">On-site</option></select></div>
           </div>
           <div><div class="label">Deal-breakers (comma separated)</div><input type="text" id="ob-dealbreakers" placeholder="e.g. relocation required, unpaid trial, iGaming"/></div>
         </div>
-      </div>
+<div class="ob-step" id="ob-step-3">
+          <p style="font-size:13px;color:var(--text2);margin-bottom:1rem">Optional but useful — set your salary minimum so the app flags roles below your threshold instantly.</p>
+          <div class="salary-grid">
+            <div><div class="label">Minimum salary</div><input type="number" id="ob-sal-min" placeholder="e.g. 2500" min="0"/></div>
+            <div><div class="label">Period</div><select id="ob-sal-period"><option value="monthly">Monthly</option><option value="annual">Annual</option></select></div>
+            <div><div class="label">Basis</div><select id="ob-sal-basis"><option value="net">Net</option><option value="gross">Gross</option></select></div>
+            <div><div class="label">Currency</div><select id="ob-sal-currency"><option value="EUR">EUR €</option><option value="RSD">RSD</option></select></div>
+          </div>
+          <p style="font-size:11px;color:var(--text3);margin-top:4px"><i class="ti ti-info-circle"></i> Net/gross conversions use estimated Serbian tax brackets and are always labelled as estimates.</p>
+        </div>
+              </div>
       <div class="ob-footer">
         <button class="btn btn-sm" id="ob-back-btn" onclick="obBack()" style="visibility:hidden"><i class="ti ti-arrow-left"></i> Back</button>
         <div style="font-size:11px;color:var(--text3)" id="ob-step-label">Step 1 of 3</div>
@@ -345,8 +361,8 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
       </div>
     </div>
     <div style="text-align:right">
-      <div style="font-size:14px;font-weight:600;color:var(--forest)">Danka Arsić</div>
-      <div id="header-sub" style="font-size:11px;color:var(--forest-mid)">CSM · 15+ yrs · Belgrade</div>
+      <div id="header-name" style="font-size:14px;font-weight:600;color:var(--forest)">Danka Arsić</div>
+      <div id="header-sub" style="font-size:11px;color:var(--forest-mid)">Senior CSM · SaaS · Fintech · AI</div>
     </div>
   </div>
 
@@ -409,7 +425,12 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
       <div class="platform-row">
         <button class="toggle-btn active" id="plat-infostud" onclick="togglePlatform('infostud',this)"><i class="ti ti-briefcase"></i> Infostud</button>
         <button class="toggle-btn active" id="plat-linkedin" onclick="togglePlatform('linkedin',this)"><i class="ti ti-brand-linkedin"></i> LinkedIn</button>
-        <button class="toggle-btn active" id="plat-both" onclick="selectBoth()">Both</button>
+        <button class="toggle-btn" id="plat-other" onclick="toggleOther(this)"><i class="ti ti-world"></i> Other URL</button>
+      </div>
+      <div id="other-url-row" style="display:none;margin-bottom:1rem">
+        <div class="label"><i class="ti ti-link"></i> Job board URL</div>
+        <input type="text" id="other-platform-url" placeholder="e.g. https://hirequest.rs/jobs or https://wearehiring.io"/>
+        <p style="font-size:11px;color:var(--text3);margin-top:4px"><i class="ti ti-info-circle"></i> The app will search for jobs on this platform alongside any selected above.</p>
       </div>
       <div class="label">Time period <span style="color:var(--coral)">*</span></div>
       <div class="period-row">
@@ -502,14 +523,56 @@ document.getElementById('mascot-img-ob').src = MASCOT_SRC;
 document.getElementById('mascot-img-header').src = MASCOT_SRC;
 document.getElementById('mascot-img-footer').src = MASCOT_SRC;
 
-const STAGES=[
-  {id:'applied',label:'Applied',color:'#27500A'},
-  {id:'awaiting',label:'Awaiting reply',color:'#378ADD'},
-  {id:'rejected',label:'Rejected',color:'#D85A30'},
-  {id:'interview1',label:'1st interview',color:'#EF9F27'},
-  {id:'interview2',label:'2nd interview',color:'#B8770A'},
-  {id:'offer',label:'Offer',color:'#3B6D11'}
+
+// ═══════════════════════════════════════════
+// DEMO DATA — pre-loaded for demo mode
+// ═══════════════════════════════════════════
+const DEMO_JOBS=[
+  {title:'Customer Success Manager',company:'Tappr',location:'Belgrade · Remote',industry:'SaaS / Fintech',contract_type:'Permanent',job_type:'Remote',platform:'Infostud',posted:'2 days ago',url:'https://poslovi.infostud.com',snippet:'Tappr is a fast-growing B2B SaaS company seeking a CSM to own end-to-end client onboarding and drive product adoption. You will be the primary point of contact for key accounts, running discovery sessions, delivering training and ensuring long-term success.',fit_score:87,fit_reason:'Strong process mapping and SaaS onboarding experience maps directly to this role',key_requirements:['3+ years CSM in SaaS','Client onboarding experience','English fluent'],match_tags:[{label:'SaaS',match:true},{label:'Onboarding',match:true},{label:'Process Mapping',match:true},{label:'iGaming exp',match:false}],sal_min:2800,sal_max:3500,sal_disclosed:true,deal_breaker:false,deal_breaker_reason:null},
+  {title:'Head of Client Success',company:'Pathway Port',location:'Serbia · Remote',industry:'AI / Tech',contract_type:'Permanent',job_type:'Remote',platform:'LinkedIn',posted:'4 days ago',url:'https://linkedin.com',snippet:'Pathway Port is building the next generation of AI-powered business tools. We are looking for a Head of Client Success to build and lead the CS department from scratch, define KPIs and own the full client lifecycle.',fit_score:91,fit_reason:'Leadership experience and built-from-scratch support model at Holland Mountain is a perfect fit',key_requirements:['5+ years CS leadership','Department building experience','SaaS background'],match_tags:[{label:'Team Leadership',match:true},{label:'Department building',match:true},{label:'SaaS',match:true},{label:'AI experience',match:true}],sal_min:3500,sal_max:5000,sal_disclosed:true,deal_breaker:false,deal_breaker_reason:null},
+  {title:'Implementation Manager',company:'Nordeus',location:'Belgrade · Hybrid',industry:'Gaming / Tech',contract_type:'Permanent',job_type:'Hybrid',platform:'LinkedIn',posted:'5 days ago',url:'https://linkedin.com',snippet:'Nordeus is seeking an Implementation Manager to lead technical onboarding projects for enterprise clients. The role requires strong project management skills, ability to translate business requirements into technical specs and managing cross-functional stakeholders.',fit_score:74,fit_reason:'Project management and stakeholder coordination skills match well, though gaming industry experience is preferred',key_requirements:['Project management','Technical onboarding','Gaming industry preferred'],match_tags:[{label:'Project Management',match:true},{label:'Stakeholder Management',match:true},{label:'Technical onboarding',match:true},{label:'Gaming exp',match:false}],sal_min:2200,sal_max:2800,sal_disclosed:true,deal_breaker:false,deal_breaker_reason:null},
+  {title:'Account Manager',company:'Nordnet',location:'Belgrade · On-site',industry:'Fintech',contract_type:'Permanent',job_type:'On-site',platform:'Infostud',posted:'1 week ago',url:'https://poslovi.infostud.com',snippet:'Nordnet is looking for an Account Manager to manage a portfolio of SMB clients, handle renewals and upsells and ensure client satisfaction. Requires relocation to Belgrade city centre office full time.',fit_score:58,fit_reason:'Account management skills match but full on-site requirement and lower salary may not align with preferences',key_requirements:['Account management','Renewals experience','Full on-site Belgrade'],match_tags:[{label:'Account Management',match:true},{label:'CRM',match:true},{label:'Full on-site',match:false},{label:'Salary',match:false}],sal_min:1800,sal_max:2200,sal_disclosed:true,deal_breaker:true,deal_breaker_reason:'Relocation required'}
 ];
+
+const DEMO_ANALYSIS={
+  score:87,skills_score:91,experience_score:88,culture_fit_score:82,
+  salary_est_min:'2800',salary_est_max:'3500',
+  salary_note:'Competitive for a remote SaaS CSM role in Serbia — above market average for Belgrade.',
+  summary:'Danka\u2019s profile is an excellent match for this role. Her 15+ years of hands-on CSM experience, combined with recent AI platform onboarding work at Marketech, maps directly onto Tappr\u2019s requirements. The only minor gap is specific iGaming industry experience, which is preferred but not essential.',
+  strengths:['End-to-end SaaS onboarding experience — exactly what Tappr needs','Process mapping and support model design skills demonstrated at Holland Mountain','AI platform experience with Claude/ChatGPT directly relevant to Tappr\u2019s tech stack'],
+  gaps:['No direct iGaming industry experience (preferred but not required)','No mention of specific CRM tools Tappr uses (HubSpot/Salesforce)'],
+  tips:['Lead with the Marketech AI platform onboarding experience — it\u2019s a direct match','Reference the Holland Mountain support model you built from scratch — shows you can structure chaos','Address the iGaming gap proactively — frame fintech/SaaS experience as transferable'],
+  red_flags:[],
+  company_notes:'Tappr is a fast-growing Belgrade-based B2B SaaS startup with around 50 employees. They have strong investor backing and are expanding their iGaming vertical across Eastern Europe. Culture is described as fast-paced, collaborative and remote-first. Glassdoor reviews are positive.',
+  cv_summary_rewrite:'Senior Customer Success professional with 15+ years delivering measurable client outcomes across SaaS, AI and fintech environments. Proven track record of building onboarding frameworks from scratch, leading cross-functional implementations and driving adoption of complex technical platforms — including daily hands-on work with AI tools. Combines deep process mapping expertise with the stakeholder management skills to align business needs, technical teams and end users.',
+  cv_skills:['SaaS Implementation','Client Onboarding','Process Mapping','AI Platform Experience','Change Management','Stakeholder Management'],
+  cv_bullets:[
+    {original:'Leads end-to-end client onboarding for an AI agent support platform serving the iGambling industry',improved:'Owns full client onboarding lifecycle for AI agent platform — from discovery through go-live — consistently achieving first-value milestones within agreed timelines',section:'Marketech Solutions'},
+    {original:'Designed Support model from scratch: ticket lifecycle, prioritisation framework, KPIs',improved:'Architected support operations from zero — designed ticket lifecycle, SLA framework and KPI dashboard still driving team performance today',section:'Holland Mountain'}
+  ]
+};
+// ═══════════════════════════════════════════
+
+const STAGES=[
+  {id:'applied',label:'Applied',color:'#534AB7'},
+  {id:'awaiting',label:'Awaiting Reply',color:'#378ADD'},
+  {id:'interview1',label:'1st Interview',color:'#EF9F27'},
+  {id:'interview2',label:'2nd Interview',color:'#D85A30'},
+  {id:'offer',label:'Offer',color:'#1D9E75'},
+  {id:'accepted',label:'Accepted 🎉',color:'#0F6E56'},
+  {id:'noreply',label:'No Reply',color:'#854F0B'},
+  {id:'rejected',label:'Rejected',color:'#E24B4A'}
+];
+
+// Contextual next actions per stage
+const STAGE_ACTIONS={
+  applied:[{id:'awaiting',label:'Next →',style:'primary'},{id:'rejected',label:'Rejected',style:'danger'}],
+  awaiting:[{id:'interview1',label:'1st Interview →',style:'primary'},{id:'noreply',label:'No Reply',style:'warning'},{id:'rejected',label:'Rejected',style:'danger'}],
+  interview1:[{id:'interview2',label:'2nd Interview →',style:'primary'},{id:'rejected',label:'Rejected',style:'danger'}],
+  interview2:[{id:'offer',label:'Offer →',style:'primary'},{id:'rejected',label:'Rejected',style:'danger'}],
+  offer:[{id:'accepted',label:'🎉 Accepted!',style:'success'},{id:'rejected',label:'Rejected',style:'danger'}],
+  accepted:[],noreply:[],rejected:[]
+};
 
 const DEFAULT_CV=`Danka Arsic — Senior Customer Success / Implementation professional, 15+ years.
 CURRENT: Customer Success Manager, Marketech Solutions (Aug 2025–present) — AI agent platform onboarding, discovery sessions, implementation, QA, prompt engineering, Claude/ChatGPT daily use.
@@ -522,9 +585,20 @@ SKILLS: Process Mapping, Change Management, Client Onboarding, Training, Stakeho
 TOOLS: CRM, Freshdesk, Jira, Trello, Workday, Claude, ChatGPT, Linear, Pylon.`;
 
 let cvText=DEFAULT_CV;
-let setup=load('as_setup')||{salMin:'',salPeriod:'monthly',salBasis:'net',salCurrency:'EUR',location:'Belgrade',type:'any',dealBreakers:''};
-let applications=load('as_apps')||[];
-let reminders=load('as_reminders')||[];
+let setup=load('as_setup')||{salMin:'2500',salPeriod:'monthly',salBasis:'net',salCurrency:'EUR',location:'Belgrade',type:'any',dealBreakers:'relocation required, unpaid trial'};
+let applications=load('as_apps')||[
+  {id:1001,title:'Customer Success Manager',company:'Tappr',date:'05 May 2026',score:87,notes:'Great remote role, spoke to recruiter on 06 May',stage:'interview1',dateAdded:Date.now()-3*86400000},
+  {id:1002,title:'Implementation Manager',company:'Nordeus',date:'02 May 2026',score:74,notes:'Hybrid — need to confirm office days',stage:'awaiting',dateAdded:Date.now()-8*86400000},
+  {id:1003,title:'Head of Client Success',company:'Pathway Port',date:'28 Apr 2026',score:91,notes:'Dream role — follow up Friday',stage:'interview2',dateAdded:Date.now()-12*86400000},
+  {id:1004,title:'Senior CSM',company:'Levi9',date:'20 Apr 2026',score:62,notes:'',stage:'rejected',dateAdded:Date.now()-20*86400000},
+  {id:1006,title:'Product CSM',company:'Vega IT',date:'10 Apr 2026',score:70,notes:'Never heard back',stage:'noreply',dateAdded:Date.now()-30*86400000},
+  {id:1005,title:'Account Manager',company:'Nordnet',date:'15 Apr 2026',score:55,notes:'Salary below minimum',stage:'rejected',dateAdded:Date.now()-25*86400000}
+];
+let reminders=load('as_reminders')||[
+  {id:2001,title:'Customer Success Manager',company:'Tappr',score:87,url:'https://poslovi.infostud.com',deadline:new Date(Date.now()+2*86400000).toISOString().split('T')[0],addedAt:Date.now()-3*86400000},
+  {id:2002,title:'Head of Client Success',company:'Pathway Port',score:91,url:'https://linkedin.com',deadline:new Date(Date.now()+9*86400000).toISOString().split('T')[0],addedAt:Date.now()-5*86400000},
+  {id:2003,title:'SaaS Implementation Lead',company:'Vega IT',score:78,url:'',deadline:new Date(Date.now()-1*86400000).toISOString().split('T')[0],addedAt:Date.now()-15*86400000}
+];
 let currentJob=null,currentAnalysis=null,cvEdits={};
 let activePlatforms=['infostud','linkedin'],activePeriod='week';
 let dragCard=null,obStep=1,unsavedResult=false;
@@ -551,9 +625,10 @@ function toggleKeyVis(){
 })();
 
 // ── Onboarding ──
-function checkOnboarding(){if(!localStorage.getItem('as_onboarded'))document.getElementById('ob-overlay').style.display='flex';}
+function checkOnboarding(){} // skipped in demo mode — onboarding pre-completed
 function obNext(){
-  if(obStep===1&&!document.getElementById('ob-sal-min').value){if(!confirm('No minimum salary set — continue anyway?'))return;}
+  // Step 1 is now CV — salary is step 3 and optional
+  if(obStep===3&&!document.getElementById('ob-sal-min').value){if(!confirm('No minimum salary set — continue anyway?'))return;}
   if(obStep<3){obStep++;updateOBProgress();}else finishOnboarding();
 }
 function obBack(){if(obStep>1){obStep--;updateOBProgress();}}
@@ -583,16 +658,22 @@ function resetOnboarding(){
 function handleOBCVUpload(input){
   const f=input.files[0];if(!f)return;
   if(!f.name.toLowerCase().match(/\.(pdf|docx|doc)$/)){alert('Word (.docx) or PDF (.pdf) only.');input.value='';return;}
-  document.getElementById('ob-cv-status').textContent='✓ '+f.name;
+  document.getElementById('ob-cv-status').textContent='✓ '+f.name+' — reading...';
   document.getElementById('ob-upload-zone').style.borderColor='var(--forest-mid)';
+  readFileAndExtract(f, ()=>{
+    document.getElementById('ob-cv-status').textContent='✓ '+f.name+' — profile extracted';
+  });
 }
 function handleCVUpload(input){
   const f=input.files[0];if(!f)return;
   if(!f.name.toLowerCase().match(/\.(pdf|docx|doc)$/)){alert('Word (.docx) or PDF (.pdf) only.');input.value='';return;}
-  document.getElementById('cv-status').textContent='✓ '+f.name;
+  document.getElementById('cv-status').textContent='✓ '+f.name+' — reading...';
   document.getElementById('upload-zone').style.borderColor='var(--forest-mid)';
+  readFileAndExtract(f, ()=>{
+    document.getElementById('cv-status').textContent='✓ '+f.name+' — profile extracted';
+  });
 }
-function updateHeaderSub(){if(setup.salMin)document.getElementById('header-sub').textContent=`Min ${setup.salCurrency} ${setup.salMin}/${setup.salPeriod==='monthly'?'mo':'yr'} · ${setup.location}`;}
+function updateHeaderSub(){} // subtitle managed by CV extraction
 
 // ── Setup page ──
 function loadSetupForm(){
@@ -669,29 +750,48 @@ async function callAPI(messages,maxTokens=1000,tools=null){
 function togglePlatform(p,el){
   if(activePlatforms.includes(p)){if(activePlatforms.length===1)return;activePlatforms=activePlatforms.filter(x=>x!==p);el.classList.remove('active');}
   else{activePlatforms.push(p);el.classList.add('active');}
-  document.getElementById('plat-both').classList.toggle('active',activePlatforms.length===2);
 }
-function selectBoth(){activePlatforms=['infostud','linkedin'];['plat-infostud','plat-linkedin','plat-both'].forEach(id=>document.getElementById(id).classList.add('active'));}
+function toggleOther(el){
+  el.classList.toggle('active');
+  const row=document.getElementById('other-url-row');
+  row.style.display=el.classList.contains('active')?'block':'none';
+  if(!el.classList.contains('active'))document.getElementById('other-platform-url').value='';
+}
 function selectPeriod(el,p){activePeriod=p;document.querySelectorAll('.period-row .toggle-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');}
 
 async function searchJobs(){
   const keywords=document.getElementById('search-keywords').value.trim();
   if(!keywords){alert('Please enter keywords — this field is required.');return;}
-  if(!getKey()){alert('Please save your API key first.');return;}
-  const location=document.getElementById('search-location').value.trim();
   const btn=document.getElementById('search-btn');
-  btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Searching...';
+  btn.disabled=true;btn.innerHTML='<span class="spinner" style="border-top-color:#1a1a18"></span> Searching...';
   document.getElementById('search-results').innerHTML='<div class="loading"><div class="spinner spinner-dark"></div> Searching '+activePlatforms.join(' & ')+'...</div>';
-  const platformStr=activePlatforms.length===2?'LinkedIn and Infostud':activePlatforms.includes('infostud')?'Infostud':'LinkedIn';
+
+  // DEMO MODE
+  if(!getKey()){
+    await new Promise(r=>setTimeout(r,1800));
+    window._searchJobs=DEMO_JOBS;
+    renderSearchResults(DEMO_JOBS);
+    btn.disabled=false;btn.innerHTML='<i class="ti ti-search"></i> Search jobs ↗';
+    return;
+  }
+
+  // LIVE MODE
+  const location=document.getElementById('search-location').value.trim();
+  const otherUrl=document.getElementById('other-platform-url')?.value?.trim();
+  const otherBtn=document.getElementById('plat-other');
+  const useOther=otherBtn&&otherBtn.classList.contains('active')&&otherUrl;
+  const platformParts=[...activePlatforms.map(p=>p==='infostud'?'Infostud':'LinkedIn'),useOther?otherUrl:''].filter(Boolean);
+  const platformStr=platformParts.join(', ');
   const periodStr=activePeriod==='24h'?'last 24 hours':activePeriod==='week'?'last week':'last month';
   const prompt=`Job search assistant. Find "${keywords}" jobs in "${location||'Serbia'}" on ${platformStr}, posted in the ${periodStr}.\nCandidate CV:\n${cvText}\n${setup.dealBreakers?`Flag deal-breaker if mentions: ${setup.dealBreakers}.`:''} ${setup.salMin?`Candidate minimum: ${setup.salMin} ${setup.salCurrency} ${setup.salPeriod} ${setup.salBasis}.`:''}\nReturn top 5 real listings ONLY as valid JSON array:\n[{"title":"<t>","company":"<c>","location":"<l>","industry":"<industry>","contract_type":"<Permanent|Contract|Freelance>","job_type":"<Remote|Hybrid|On-site>","platform":"<LinkedIn|Infostud>","posted":"<e.g. 2 days ago>","url":"<real URL or null>","snippet":"<2 sentence description>","fit_score":<0-100>,"fit_reason":"<1 sentence>","key_requirements":["<req1>","<req2>","<req3>"],"match_tags":[{"label":"<skill>","match":<true|false>}],"sal_min":<monthly EUR or null>,"sal_max":<monthly EUR or null>,"sal_disclosed":<true|false>,"deal_breaker":<true|false>,"deal_breaker_reason":"<reason or null>"}]`;
   try{
     const raw=await callAPI([{role:'user',content:prompt}],2000,[{type:'web_search_20250305',name:'web_search'}]);
-    window._searchJobs=JSON.parse(raw.replace(/```json|```/g,'').trim()).sort((a,b)=>b.fit_score-a.fit_score);
+    window._searchJobs=JSON.parse(raw.replace(/\`\`\`json|\`\`\`/g,'').trim()).sort((a,b)=>b.fit_score-a.fit_score);
     renderSearchResults(window._searchJobs);
   }catch(e){document.getElementById('search-results').innerHTML='<div class="error-box"><i class="ti ti-alert-circle"></i> Search failed. Please check your API key and try again.</div>';}
   btn.disabled=false;btn.innerHTML='<i class="ti ti-search"></i> Search jobs ↗';
 }
+
 
 function renderSearchResults(jobs){
   if(!jobs.length){document.getElementById('search-results').innerHTML='<div class="error-box">No results found. Try different keywords or a broader time period.</div>';return;}
@@ -753,6 +853,15 @@ function startDeepAnalysis(idx){
 }
 
 async function runDeepAnalysis(job){
+  if(!getKey()){
+    document.getElementById('wizard-body').innerHTML='<div class="loading"><div class="spinner spinner-dark"></div> Running deep analysis...</div>';
+    await new Promise(r=>setTimeout(r,2200));
+    currentAnalysis=DEMO_ANALYSIS;
+    renderWizardStep1();
+    unsavedResult=true;
+    showSavePrompt();
+    return;
+  }
   document.getElementById('wizard-body').innerHTML='<div class="loading"><div class="spinner spinner-dark"></div> Running deep analysis...</div>';
   const prompt=`Senior career coach. Be specific and honest.\nCV:\n${cvText}\nJOB: ${job.title} at ${job.company}\nDESCRIPTION: ${job.snippet}\nReturn ONLY valid JSON:\n{"score":<0-100>,"skills_score":<0-100>,"experience_score":<0-100>,"culture_fit_score":<0-100>,"salary_est_min":"<monthly EUR>","salary_est_max":"<monthly EUR>","salary_note":"<1 sentence>","summary":"<3 sentences>","strengths":["<s>","<s>","<s>"],"gaps":["<g>","<g>"],"tips":["<t>","<t>"],"red_flags":["<flag or empty array>"],"company_notes":"<2-3 sentences>","cv_summary_rewrite":"<3-4 sentence tailored summary>","cv_skills":["<s>","<s>","<s>","<s>"],"cv_bullets":[{"original":"<b>","improved":"<b>","section":"<s>"},{"original":"<b>","improved":"<b>","section":"<s>"}]}`;
   try{
@@ -852,6 +961,26 @@ function proceedToCV(){
 function toggleSkill(i,el,s){el.classList.toggle('removed');if(el.classList.contains('removed'))cvEdits.skills=cvEdits.skills.filter(x=>x!==s);else cvEdits.skills.push(s);}
 
 async function generateWordCV(){
+  if(!getKey()){
+    const area=document.getElementById('cv-word-result');
+    area.innerHTML='<div class="loading"><div class="spinner spinner-dark"></div> Building tailored CV...</div>';
+    await new Promise(r=>setTimeout(r,1500));
+    cvEdits.summary=document.getElementById('edit-summary').value;
+    cvEdits.bullets.forEach((b,i)=>{b.edited=document.getElementById('edit-bullet-'+i)?.value||b.improved;});
+    buildDocx({
+      profile:cvEdits.summary,
+      experience:[
+        {title:'Customer Success Manager',company:'Marketech Solutions',dates:'Aug 2025–Present',bullets:['Led end-to-end onboarding for AI agent platform clients, reducing time-to-value by 30% through structured implementation methodology','Conducted discovery sessions translating complex client requirements into actionable technical integration specs','Drove platform adoption through hands-on training, achieving 95%+ client satisfaction scores']},
+        {title:'Team Leader — KYC Operations',company:'Sumsub',dates:'Sep 2024–Aug 2025',bullets:['Managed and developed 20+ remote KYC specialists across multiple locations, maintaining 98% SLA compliance','Designed and delivered coaching programmes that improved team quality scores by 22%','Owned end-to-end recruitment, scaling team capacity by 40% to meet business growth targets']},
+        {title:'Client Success Manager',company:'Holland Mountain',dates:'Apr 2022–Oct 2023',bullets:['Designed support model from scratch — ticket lifecycle, prioritisation framework and KPIs still in use today','Led change management initiative onboarding 6 departments to new support platform with zero disruption','Built and maintained CRM enabling data-driven account management across 25+ key accounts']}
+      ],
+      skills:cvEdits.skills.length?cvEdits.skills:['Process Mapping','Change Management','Client Onboarding','SaaS Implementation','Stakeholder Management','Team Leadership','KPI Management','Project Management'],
+      tools:['CRM','Freshdesk','Jira','Trello','Workday','Claude','ChatGPT','Linear','Pylon'],
+      education:"Master's in Entrepreneurial Management, University of Belgrade (2017)",
+      languages:'English (fluent), Italian, Spanish'
+    },area);
+    return;
+  }
   const area=document.getElementById('cv-word-result');
   area.innerHTML='<div class="loading"><div class="spinner spinner-dark"></div> Building tailored CV...</div>';
   cvEdits.summary=document.getElementById('edit-summary').value;
@@ -947,6 +1076,14 @@ function showSaveForLater(){
 }
 
 async function autoExtractDeadline(){
+  if(!getKey()){
+    const btn=event.target.closest('button');btn.disabled=true;btn.innerHTML='<span class="spinner" style="border-top-color:#1a1a18"></span>';
+    await new Promise(r=>setTimeout(r,800));
+    const futureDate=new Date(Date.now()+14*86400000).toISOString().split('T')[0];
+    document.getElementById('deadline-input').value=futureDate;
+    btn.disabled=false;btn.innerHTML='<i class="ti ti-sparkles"></i> Auto-detect';
+    return;
+  }
   const btn=event.target.closest('button');btn.disabled=true;btn.innerHTML='<span class="spinner"></span>';
   try{
     const d=await callAPI([{role:'user',content:`Extract the application deadline from this job posting. Return ONLY the date as YYYY-MM-DD, or "unknown" if not found.\nJob: ${currentJob.title} at ${currentJob.company}\n${currentJob.snippet}`}],100);
@@ -1029,26 +1166,39 @@ function renderTracker(){
   document.getElementById('tracker-board').innerHTML=`<div class="pipeline">${STAGES.map(stage=>{
     const apps=applications.filter(a=>a.stage===stage.id);
     const isStale=a=>stage.id==='awaiting'&&(now-a.dateAdded)>days*86400000;
-    return `<div class="stage-col" ondragover="event.preventDefault()" ondrop="onDrop(event,'${stage.id}')">
+    return `<div class="stage-col">
       <h4 style="color:${stage.color}">${stage.label}<span class="stage-count">${apps.length}</span></h4>
-      ${apps.map(a=>{const sc=a.score?scoreColor(parseInt(a.score)):{bg:'#F1EFE8',text:'#5F5E5A'};const sl=isStale(a);
-        return `<div class="app-card${sl?' stale':''}" draggable="true" ondragstart="onDragStart(event,${a.id})">
+      ${apps.length===0&&(stage.id==='accepted'||stage.id==='noreply'||stage.id==='rejected')?`<div style="font-size:11px;color:var(--text3);text-align:center;padding:10px 0;font-style:italic">${stage.id==='accepted'?'🎉 Congratulations!':stage.id==='noreply'?'Ghosted — no feedback':''}</div>`:''}
+      ${apps.map(a=>{
+        const sc=a.score?scoreColor(parseInt(a.score)):{bg:'#F1EFE8',text:'#5F5E5A'};
+        const sl=isStale(a);
+        const actions=STAGE_ACTIONS[stage.id]||[];
+        return `<div class="app-card${sl?' stale':''}">
           <div class="ac-title">${a.title}</div>
           <div class="ac-company">${a.company}</div>
           ${a.score?`<span class="ac-score" style="background:${sc.bg};color:${sc.text}">${a.score}% match</span>`:''}
           <div class="ac-date"><i class="ti ti-calendar" style="font-size:10px"></i> ${a.date}</div>
           ${sl?`<div class="ac-stale"><i class="ti ti-clock"></i> No reply in ${Math.floor((now-a.dateAdded)/86400000)}d</div>`:''}
-          ${a.notes?`<div style="font-size:11px;color:var(--text2);margin-top:2px">${a.notes.substring(0,55)}${a.notes.length>55?'...':''}</div>`:''}
-          <div class="ac-actions">
-            ${STAGES.filter(s=>s.id!==stage.id).slice(0,2).map(s=>`<button class="btn btn-xs" style="color:${s.color};border-color:${s.color}" onclick="moveStage(${a.id},'${s.id}')"><i class="ti ti-arrow-right"></i> ${s.label}</button>`).join('')}
-            <button class="btn btn-xs" onclick="editNotes(${a.id})" title="Edit notes"><i class="ti ti-note"></i></button>
-            <button class="btn btn-xs btn-ghost" onclick="deleteApp(${a.id})" title="Remove"><i class="ti ti-trash"></i></button>
+          ${a.notes?`<div style="font-size:11px;color:var(--text2);margin-top:2px;line-height:1.4">${a.notes.substring(0,55)}${a.notes.length>55?'...':''}</div>`:''}
+          <div style="display:flex;flex-direction:column;gap:3px;margin-top:6px">
+            ${actions.map(act=>{
+              const btnStyle=act.style==='primary'?`background:#86A083;color:#1a1a18;border:none;font-weight:600`:
+                act.style==='success'?`background:#EAF3DE;color:#3B6D11;border:0.5px solid #b8d98a;font-weight:600`:
+                act.style==='warning'?`background:#FAEEDA;color:#854F0B;border:0.5px solid #f5d08a`:
+                `background:#FCEBEB;color:#A32D2D;border:0.5px solid #f0b4b4`;
+              return `<button style="width:100%;height:24px;font-size:11px;border-radius:5px;cursor:pointer;font-family:var(--font-sans);display:flex;align-items:center;justify-content:center;gap:3px;${btnStyle}" onclick="moveStage(${a.id},'${act.id}')">${act.label}</button>`;
+            }).join('')}
+            <div style="display:flex;gap:3px;margin-top:2px">
+              <button class="btn btn-xs" onclick="editNotes(${a.id})" title="Edit notes" style="flex:1"><i class="ti ti-note"></i></button>
+              <button class="btn btn-xs btn-ghost" onclick="deleteApp(${a.id})" title="Remove" style="flex:1"><i class="ti ti-trash"></i></button>
+            </div>
           </div>
         </div>`;}).join('')}
     </div>`;}).join('')}</div>`;
 }
-function onDragStart(e,id){dragCard=id;e.dataTransfer.effectAllowed='move';}
-function onDrop(e,stage){e.preventDefault();if(dragCard)moveStage(dragCard,stage);dragCard=null;}
+
+
+// drag and drop removed — stage buttons handle movement
 function updateTrackerBadge(){const b=document.getElementById('tracker-badge');if(applications.length){b.style.display='inline';b.textContent=applications.length;}else b.style.display='none';}
 
 // ── Reminders ──
@@ -1093,9 +1243,68 @@ function updateNotifBadge(){
 // ── Helpers ──
 function switchInner(el,id){document.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.inner-content').forEach(t=>t.classList.remove('active'));el.classList.add('active');document.getElementById(id).classList.add('active');}
 
+
+
+// ── File reader + CV text extraction ──
+function readFileAndExtract(file, onDone){
+  const reader=new FileReader();
+  reader.onload=function(e){
+    // For PDF we get binary — just use filename as hint and raw text if readable
+    const text=typeof e.target.result==='string'?e.target.result:DEFAULT_CV;
+    cvText=text||DEFAULT_CV;
+    extractCVProfile(cvText).then(onDone).catch(onDone);
+  };
+  reader.onerror=function(){onDone&&onDone();};
+  // Read as text — works well for .docx plain text and some PDFs
+  reader.readAsText(file);
+}
+
+// ── CV name + headline extraction ──
+async function extractCVProfile(fileText){
+  if(!getKey()){
+    // Demo mode — skip extraction, keep defaults
+    return;
+  }
+  try{
+    const raw=await callAPI([{role:'user',content:`You are a CV parser. Read this CV and extract two things:
+1. The candidate's full name
+2. A professional headline of exactly 4 elements separated by · in this format: [Seniority+Title] · [Industry1] · [Industry2] · [Key skill or tool]
+Example: "Senior CSM · SaaS · Fintech · AI"
+
+Return ONLY valid JSON: {"name":"<full name>","headline":"<headline>"}
+
+CV TEXT:
+${fileText.substring(0,3000)}`}],200);
+    const parsed=JSON.parse(raw.replace(/\`\`\`json|\`\`\`/g,'').trim());
+    if(parsed.name){
+      document.getElementById('header-name').textContent=parsed.name;
+      localStorage.setItem('as_cv_name',parsed.name);
+    }
+    if(parsed.headline){
+      document.getElementById('header-sub').textContent=parsed.headline;
+      localStorage.setItem('as_cv_headline',parsed.headline);
+    }
+  }catch(e){
+    // Extraction failed — show fallback
+    document.getElementById('header-sub').textContent='No preview available';
+    localStorage.setItem('as_cv_headline','No preview available');
+  }
+}
+
+// ── Load saved CV profile on init ──
+function loadCVProfile(){
+  const name=localStorage.getItem('as_cv_name');
+  const headline=localStorage.getItem('as_cv_headline');
+  const nameEl=document.getElementById('header-name');
+  const subEl=document.getElementById('header-sub');
+  if(name&&nameEl)nameEl.textContent=name;
+  if(headline&&subEl)subEl.textContent=headline;
+  else if(subEl&&!subEl.textContent)subEl.textContent='No preview available';
+}
+
 // ── Init ──
 updateTrackerBadge();updateNotifBadge();renderTracker();
-loadSetupForm();updateHeaderSub();
+loadSetupForm();loadCVProfile();
 checkOnboarding();
 </script>
 </body>
