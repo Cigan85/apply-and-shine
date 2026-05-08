@@ -368,8 +368,8 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
 
   <!-- TOP NAV -->
   <div class="top-nav">
-    <button class="top-tab" onclick="showPage('page-setup',this)"><i class="ti ti-settings"></i> Setup</button>
-    <button class="top-tab active" onclick="showPage('page-search',this)"><i class="ti ti-search"></i> Search</button>
+    <button class="top-tab active" onclick="showPage('page-setup',this)"><i class="ti ti-settings"></i> Setup</button>
+    <button class="top-tab" onclick="showPage('page-search',this)"><i class="ti ti-search"></i> Search</button>
     <button class="top-tab" onclick="showPage('page-wizard',this)"><i class="ti ti-list-check"></i> Pipeline</button>
     <button class="top-tab" onclick="showPage('page-tracker',this)"><i class="ti ti-table"></i> Tracker <span id="tracker-badge" style="display:none;background:var(--forest);color:#C0DD97;font-size:10px;padding:1px 6px;border-radius:10px;margin-left:2px"></span></button>
     <button class="top-tab" onclick="showPage('page-notifs',this)"><i class="ti ti-bell"></i> Reminders <span class="notif-badge" id="notif-badge"></span></button>
@@ -377,7 +377,7 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
 
   <div style="padding:1.5rem 1.5rem 0">
   <!-- PAGE: SETUP -->
-  <div id="page-setup" class="page">
+  <div id="page-setup" class="page active">
     <div class="setup-section">
       <h3><i class="ti ti-upload"></i> Your CV</h3>
       <div class="upload-zone" onclick="document.getElementById('cv-file').click()" id="upload-zone">
@@ -415,7 +415,7 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
   </div>
 
   <!-- PAGE: SEARCH -->
-  <div id="page-search" class="page active">
+  <div id="page-search" class="page">
     <div style="margin-top:.5rem">
       <div class="form-row" style="margin-bottom:1rem">
         <div><div class="label"><i class="ti ti-search"></i> Keywords <span style="color:var(--coral)">*</span></div><input type="text" id="search-keywords" placeholder="e.g. Customer Success Manager" value="Customer Success Manager"/></div>
