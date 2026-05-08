@@ -379,17 +379,6 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
   <!-- PAGE: SETUP -->
   <div id="page-setup" class="page">
     <div class="setup-section">
-      <h3><i class="ti ti-currency-euro"></i> Salary preferences</h3>
-      <div class="salary-grid">
-        <div><div class="label">Minimum salary</div><input type="number" id="sal-min" placeholder="e.g. 2500" min="0"/></div>
-        <div><div class="label">Period</div><select id="sal-period"><option value="monthly">Monthly</option><option value="annual">Annual</option></select></div>
-        <div><div class="label">Basis</div><select id="sal-basis"><option value="net">Net</option><option value="gross">Gross</option></select></div>
-        <div><div class="label">Currency</div><select id="sal-currency"><option value="EUR">EUR €</option><option value="RSD">RSD</option></select></div>
-      </div>
-      <p style="font-size:11px;color:var(--text3);margin-top:4px"><i class="ti ti-info-circle"></i> Conversions use estimated Serbian tax brackets — always labelled as estimates.</p>
-    </div>
-    <div class="divider"></div>
-    <div class="setup-section">
       <h3><i class="ti ti-upload"></i> Your CV</h3>
       <div class="upload-zone" onclick="document.getElementById('cv-file').click()" id="upload-zone">
         <div class="uicon"><i class="ti ti-file-upload"></i></div>
@@ -406,6 +395,17 @@ input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px rgba(3
         <div><div class="label">Job type</div><select id="pref-type"><option value="any">Any</option><option value="remote">Remote only</option><option value="hybrid">Hybrid</option><option value="onsite">On-site</option></select></div>
       </div>
       <div><div class="label">Deal-breakers (comma separated)</div><input type="text" id="deal-breakers" placeholder="e.g. relocation required, iGaming, unpaid trial"/></div>
+    </div>
+    <div class="divider"></div>
+    <div class="setup-section">
+      <h3><i class="ti ti-currency-euro"></i> Salary preferences</h3>
+      <div class="salary-grid">
+        <div><div class="label">Minimum salary</div><input type="number" id="sal-min" placeholder="e.g. 2500" min="0"/></div>
+        <div><div class="label">Period</div><select id="sal-period"><option value="monthly">Monthly</option><option value="annual">Annual</option></select></div>
+        <div><div class="label">Basis</div><select id="sal-basis"><option value="net">Net</option><option value="gross">Gross</option></select></div>
+        <div><div class="label">Currency</div><select id="sal-currency"><option value="EUR">EUR €</option><option value="RSD">RSD</option></select></div>
+      </div>
+      <p style="font-size:11px;color:var(--text3);margin-top:4px"><i class="ti ti-info-circle"></i> Conversions use estimated Serbian tax brackets — always labelled as estimates.</p>
     </div>
     <div style="display:flex;gap:8px;align-items:center;margin-top:1rem">
       <button class="btn btn-primary" onclick="saveSetup()"><i class="ti ti-check"></i> Save preferences</button>
